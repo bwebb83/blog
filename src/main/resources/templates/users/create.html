@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+
+<head th:replace ="fragments/header :: header(${'Login Page'}">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<div th:replace ="fragments/navbar:: navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <h1>Register</h1>
+        <div class="col 18 offset-12">
+            <form th:action="@{users/create}" th:method="POST" th:object="${user}">
+                <label for="username">Username</label>
+                <input class="form-control" th:field="*{username}" id="username"/>
+
+                <label for="email">Email</label>
+                <input class="form-control" th:field="*{email}" id="email"/>
+
+                <label for="password">Password</label>
+                <input class="password" class="form-control" th:field="*{password}" id="password"/>
+
+                <input class="btn btn-primary" type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

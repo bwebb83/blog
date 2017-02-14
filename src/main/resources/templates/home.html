@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Homepage</title>
+</head>
+<body>
+
+<div class = "navbar" th:include="fragments/navbar :: newNavbar">This is the inside content</div>
+
+<h1>This is our home page</h1>
+Today is: <p th:text="${date}"></p>
+
+<p th:if="${age==30}">You are 30</p>
+<p th:if="${age==26}">You are 26</p>
+
+<h2>List of names</h2>
+<ul>
+    <span th:each="name : ${names}">
+        <li th:text="${name}"></li>
+    </span>
+</ul>
+
+
+</body>
+</html>
