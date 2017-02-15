@@ -1,6 +1,10 @@
 package com.codeup.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -14,13 +18,17 @@ public class Post {
     private Long id;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message="Title cannot be empty.")
     private String title;
 
     @Column(nullable=false, length = 2000)
+    @NotBlank(message="The body of the post cannot be empty.")
+    @Size(min=5, message ="The body must be at least 5 characters.")
     private String body;
 
     @ManyToOne
     @JoinColumn (name="user_id")
+    @JsonManagedReference
     private User user;
 
 

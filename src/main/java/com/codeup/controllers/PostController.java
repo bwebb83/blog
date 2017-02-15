@@ -5,11 +5,15 @@ import com.codeup.models.User;
 import com.codeup.repositories.Posts;
 //import com.codeup.services.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,8 +33,13 @@ public class PostController {
 
     @GetMapping("/posts")
     public String post(Model model){
-        model.addAttribute("posts", postDao.findAll());
+        model.addAttribute("posts", Collections.emptyList());
         return "posts/index";
+    }
+
+    @GetMapping("/posts.json")
+    public @ResponseBody List<Post> retrieveAllPosts(){
+        return(List<Post>) postDao.findAll();
     }
 
     @GetMapping("/posts/{id}")
@@ -46,9 +55,14 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String savePost(@ModelAttribute Post post, Model model){
-        User user = new User();
-        user.setId(1L);
+    public String savePost(@Valid Post post, Errors validation, Model model){
+        if(validation.hasErrors()){
+            model.addAttribute("errors", validation);
+            model.addAttribute("post", post);
+            return "posts/create";
+        }
+
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         postDao.save(post);
         return "redirect:/posts";

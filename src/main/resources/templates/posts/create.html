@@ -11,8 +11,12 @@
 <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
     <label>Title</label>
     <input type = "text" name = "title"  th:field="*{title}" />
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
+
     <Label>Description</Label>
     <input type ="text" name = "body" th:field="*{body}" />
+    <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
+
 
     <input type ="submit" value = "Save ad" />
 </form>

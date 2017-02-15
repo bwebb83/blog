@@ -5,6 +5,8 @@
     <title>Edit</title>
 </head>
 <body>
+<div class = "navbar" th:include="fragments/navbar :: newNavbar">This is the inside content</div>
+
 
 <form th:action="@{'/posts/'+ *{id} +'/edit'}" th:method="post" th:object="${post}">
     <label>Title</label>

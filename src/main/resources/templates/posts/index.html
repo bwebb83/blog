@@ -6,12 +6,18 @@
     <title>Title</title>
 </head>
 <body>
+<div class = "navbar" th:include="fragments/navbar :: newNavbar">This is the inside content</div>
+
 <h1>All the posts!</h1>
 
-<div th:each="post : ${posts}">
-    <h2 th:text="${post.title}" />
-    <p th:text="${post.body}" />
-</div>
+<div id="load-posts"></div>
+
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"
+></script>
+<script src = "/scripts/posts-list.js"></script>
 
 </body>
 </html>

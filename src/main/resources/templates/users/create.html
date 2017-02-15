@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymleaf.org">
 
-<head th:replace ="fragments/header :: header(${'Login Page'}">
+<head th:replace ="fragments/header :: header">
     <meta charset="UTF-8" />
     <title>Title</title>
 </head>
@@ -11,18 +11,25 @@
 <div class="container">
     <div class="row">
         <h1>Register</h1>
-        <div class="col 18 offset-12">
+        <div class="col 18 offset-12" >
             <form th:action="@{users/create}" th:method="POST" th:object="${user}">
                 <label for="username">Username</label>
-                <input class="form-control" th:field="*{username}" id="username"/>
+                <input type="text" class="form-control" th:field="*{username}" id="username" />
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" />
+
 
                 <label for="email">Email</label>
-                <input class="form-control" th:field="*{email}" id="email"/>
+                <input type="text" class="form-control" th:field="*{email}" id="email" />
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" />
+
 
                 <label for="password">Password</label>
-                <input class="password" class="form-control" th:field="*{password}" id="password"/>
+                <input type="password" class="password form-control" th:field="*{password}" id="password" />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
 
-                <input class="btn btn-primary" type="submit" />
+
+                <button class="btn btn-primary" type="submit" >Register</button>
+                <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}" />
             </form>
         </div>
     </div>
